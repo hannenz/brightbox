@@ -10,8 +10,8 @@ A simple jQuery lightbox plugin for prototyping. No images needed, all done in C
 <a class="brightbox" href="another-image.jpg" title="Description of another image"><img src="thumbnail-or-image.jpg" alt="" /></a>
 ...
 ~~~
- 
-### Javasceript
+
+### Javascript
  
 ~~~
 var options = { ... };
@@ -21,19 +21,20 @@ $('.brightbox').brightbox(options);
 ### Options
 
 overlayBgColor string
-:	CSS color description to use for the overlay
+	:	CSS color description to use for the overlay
 
 boxPadding number
-:	Padding of the brightbox box in px (The "white border around the image);
+	:	Padding of the brightbox box in px (The "white border around the image);
 
 animate boolean
-:	whether to animate or not
+	:	whether to animate or not
 
 animationSpeed number
-: 	animation speed
+	: 	animation speed
 
 onImageClick function
-:	callback function to execute when the image is clicked
+	:	callback function to execute when the image is clicked
+
 
 ### CSS:
 
