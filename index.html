@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+
+  <title>Welcome to Foundation</title>
+
+  <!-- Included CSS Files -->
+  <link rel="stylesheet" href="stylesheets/foundation.css">
+  <link rel="stylesheet" href="stylesheets/brightbox.css">
+
+  <!--[if lt IE 9]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+  <![endif]-->
+
+  <script src="javascripts/modernizr.foundation.js"></script>
+
+  <!-- IE Fix for HTML5 Tags -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+	<style type="text/css">
+		ul#thumbnails li {
+			min-height:90px;
+		}
+	</style>
+
+</head>
+<body>
+
+  <div class="row">
+    <div class="twelve columns">
+      <h2>Welcome to Foundation</h2>
+      <p>This is version 3.0.5 released on July   10, 2012.</p>
+      <hr />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="eight columns">
+      <h3>The Grid</h3>
+
+      <!-- Grid Example -->
+      <div class="row">
+        <div class="twelve columns">
+          <div class="panel">
+            <p>This is a twelve column section in a row. Each of these includes a div.panel element so you can see where the columns are - it's not required at all for the grid.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="six columns">
+          <div class="panel">
+            <p>Six columns</p>
+          </div>
+        </div>
+        <div class="six columns">
+          <div class="panel">
+            <p>Six columns</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="four columns">
+          <div class="panel">
+            <p>Four columns</p>
+          </div>
+        </div>
+        <div class="four columns">
+          <div class="panel">
+            <p>Four columns</p>
+          </div>
+        </div>
+        <div class="four columns">
+          <div class="panel">
+            <p>Four columns</p>
+          </div>
+        </div>
+      </div>
+
+
+      <h3>Tabs</h3>
+      <dl class="tabs">
+        <dd class="active"><a href="#simple1">Simple Tab 1</a></dd>
+        <dd><a href="#simple2">Simple Tab 2</a></dd>
+        <dd><a href="#simple3">Simple Tab 3</a></dd>
+      </dl>
+
+      <ul class="tabs-content">
+        <li class="active" id="simple1Tab">This is simple tab 1's content. Pretty neat, huh?</li>
+        <li id="simple2Tab">This is simple tab 2's content. Now you see it!</li>
+        <li id="simple3Tab">This is simple tab 3's content. It's, you know...okay.</li>
+      </ul>
+
+      <h3>Buttons</h3>
+
+      <div class="row">
+        <div class="six columns">
+          <p><a href="#" class="small button">Small Button</a></p>
+          <p><a href="#" class="button">Medium Button</a></p>
+          <p><a href="#" class="large button">Large Button</a></p>
+        </div>
+        <div class="six columns">
+          <p><a href="#" class="small alert button">Small Alert Button</a></p>
+          <p><a href="#" class="success button">Medium Success Button</a></p>
+          <p><a href="#" class="large secondary button">Large Secondary Button</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="four columns">
+      <h4>Getting Started</h4>
+      <p>We're stoked you want to try Foundation! To get going, this file (index.html) includes some basic styles you can modify, play around with, or totally destroy to get going.</p>
+
+	<h4>Some pictures</h4>
+	<p>Featuring <em>brightbox.js</em> &ndash; a jQuery lightbox plugin for use in Foundation for fast prototyping with sane defaults and tweakable. Click on the pictures to see brightbox in action</p>
+	<ul id="thumbnails" class="block-grid three-up">
+		<li><a href="images/sample_0.jpg" title="A scene from the Open Source aimation movie 'Big Buck Bunny'"><img src="images/sample_0_thumb.jpg" alt="" /></a></li>
+		<li><a href="images/sample_1.jpg" title="Hey ho, lets go"><img src="images/sample_1_thumb.jpg" alt="" /></a></li>
+		<li><a href="images/sample_2.jpg" title="This is a bit a longer title: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Iam in altera philosophiae parte. Cupit enim dícere nihil posse ad beatam vitam deesse sapienti. Deinde disputat, quod cuiusque generis animantium statui deceat extremum. Quam tu ponis in verbis, ego positam in re putabam. Scientiam pollicentur, quam non erat mirum sapientiae cupido patria esse cariorem. Nec vero alia sunt quaerenda contra Carneadeam illam sententiam. Duo Reges: constructio interrete. Ille incendat? Tu vero, inquam, ducas licet, si sequetur; At eum nihili facit"><img src="images/sample_2_thumb.jpg" alt="" /></a></li>
+		<li><a href="images/sample_3.jpg" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. At ille pellit, qui permulcet sensum voluptate. Ea possunt paria non esse. Quare attende, quaeso"><img src="images/sample_3_thumb.jpg" alt="" /></a></li>
+		<li><a href="images/sample_4.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_4_thumb.jpg" alt="" /></a></li>
+		<li><a href="images/sample_5.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_5_thumb.jpg" alt="" /></a></li>
+		<li><a href="images/sample_6.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_6_thumb.jpg" alt="" /></a></li>
+		<li><a href="images/sample_7.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_7_thumb.jpg" alt="" /></a></li>
+		<li><a href="images/sample_8.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_8_thumb.jpg" alt="" /></a></li>
+		<li><a href="images/sample_9.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_9_thumb.jpg" alt="" /></a></li>
+		<li><a href="images/sample_10.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_10_thumb.jpg" alt="" /></a></li>
+		<li><a href="images/sample_11.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_11_thumb.jpg" alt="" /></a></li>
+		<li><a href="images/sample_12.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_12_thumb.jpg" alt="" /></a></li>
+	</ul>
+
+      <h4>Other Resources</h4>
+      <p>Once you've exhausted the fun in this document, you should check out:</p>
+      <ul class="disc">
+        <li><a href="http://foundation.zurb.com/docs">Foundation Documentation</a><br />Everything you need to know about using the framework.</li>
+        <li><a href="http://github.com/zurb/foundation">Foundation on Github</a><br />Latest code, issue reports, feature requests and more.</li>
+        <li><a href="http://twitter.com/foundationzurb">@foundationzurb</a><br />Ping us on Twitter if you have questions. If you build something with this we'd love to see it (and send you a totally boss sticker).</li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <!-- Included JS Files -->
+  <script src="javascripts/jquery.min.js"></script>
+  <script src="javascripts/brightbox.js"></script>
+  <script>
+	  $(document).ready(function(){
+		  $('#thumbnails a').brightbox({
+			  animate : true,
+			  boxPadding : '0px',
+			  onImageClick : function(imageURL){
+				  alert ("The image has been clicked: " + imageURL);
+				}
+		  });
+	  });
+  </script>
+  
+
+</body>
+</html>
