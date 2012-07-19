@@ -4,6 +4,9 @@
  * 2012
  */
 
+
+
+
 .brightbox-overlay {
 	z-index : 1000;
 	position : fixed;
@@ -14,17 +17,26 @@
 	text-align : center;
 	color : #888888;
 	overflow : hidden;
+	background-color:#4d4d4d;
+	background-color:rgba(0, 0, 0, 0.8);
 }
+
 .brightbox {
 	z-index : 1001;
 	background-color : #ffffff;
+/*
+	background-color:#000000;
+*/
 	position : absolute;
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing : border-box;
 	box-sizing : border-box;
 	width : 300;
 	height : 200;
 	position:relative;
 	border-radius:4px;
 	overflow:visible;
+	padding:0;
 }
 
 .brightbox-button {
@@ -105,27 +117,13 @@
 	display:block;
 	border-radius:4px;
 	z-index:1002;
+	cursor:pointer;
 }
 
 .brightbox-busy {
 	color:#888;
-	text-align:center;
-	line-height:100%;
-	-moz-animation:busy 0.3s ease 0.1s infinite alternate;
-	-webkit-animation:busy 0.3s ease 0 infinite alternate;
-	animation:busy 0.3s ease 0 infinite alternate;
-	line-height:100px;
-}
-
-@-moz-keyframes busy {
-	from {		-moz-transform:scale(1.0);	}
-	to {		-moz-transform:scale(1.15);	}
-}
-@-webkit-keyframes busy {
-	from {		-webkit-transform:scale(1.0);	}
-	to {		-webkit-transform:scale(1.15);	}
-}
-@keyframes busy {
-	from {		transform:scale(1.0);	}
-	to {		transform:scale(1.15);	}
+	text-align:left;
+	font-size:12px;
+	line-height:1;
+	padding:10px;
 }
