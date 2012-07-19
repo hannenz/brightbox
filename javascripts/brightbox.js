@@ -66,6 +66,7 @@
 			.append(info)
 			.css(initBoxCss)
 			.appendTo(overlay)
+			.bind('mousewheel', onMousewheel)
 		;
 			
 		if (options['closeOnOverlayClick']){
@@ -159,6 +160,20 @@
 						closeBrightBox();
 					}
 					break;
+			}
+			return false;
+		}
+		
+		function onMousewheel(event, delta){
+			event.preventDefault();
+			event.stopPropagation();
+			if (imageLinks.length > 1){
+				if (delta > 0){
+					nextBrightBox();
+				}
+				else {
+					prevBrightBox();
+				}
 			}
 			return false;
 		}
