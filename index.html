@@ -29,6 +29,28 @@
   <![endif]-->
 
 	<style type="text/css">
+		body {
+		}
+		body, div, dl, dt, dd, ul, ol, li, pre, form, fieldset, p, blockquote, th, td {
+			font-size:13px;
+			color:#333;
+		}
+		h5 {
+			font-size:1em;
+			line-height:1.5em;
+		}
+		h4 {
+			font-size:1.25em;
+		}
+		h3 {
+			font-size:1.5em;
+		}
+		h2 {
+			font-size:1.75em;
+		}
+		h1 {
+			font-size:2em;
+		}
 		ul#thumbnails li {
 			min-height:120px;
 		}
@@ -47,11 +69,26 @@
 			clear:both;
 		}
 		dd {
-			width:70%;
-			float:left;
+			width:65%;
+			float:right;
 			color:#888;
 			padding:0;
-			margin:0;
+			margin:0 0 1em 0;
+		}
+		div.eight.columns .row {
+			margin:0 0 4.5em 0;
+		}
+		aside {
+			font-size:0.8em;
+			color:#848484;
+		}
+		pre {
+			background:#f4f4f4;
+			color:#888;
+			font-family:monospace;
+			line-height:1.3em;
+			overflow:auto;
+			padding:8px;
 		}
 	</style>
 
@@ -74,9 +111,11 @@
 				<h4>Features</h4>
 				<dl>
 					<dt>Lightweight</dt>
-					<dd>Only xxx Kb, no images except for an optional loader.gif</dd>
+					<dd>Only 3.2 KB (minified), no images except for an optional loader.gif</dd>
 					<dt>Solid</dt>
-					<dd>Sane default behavior, works in every browser from IE7+</dd>
+					<dd>Sane default behavior, works in every browser from IE7+, Keyboard navigation</dd>
+					<dt>Flexible</dt>
+					<dd>Customizeable: All styling can be tweaked by providing CSS styles.</dd>
 					<dt>Easy setup</dt>
 					<dd>Just call brightbox() on a selection of thumbnail links</dd>
 				</dl>
@@ -87,34 +126,45 @@
 			  <h4>The Code</h4>
 			  <dl>
 				  <dt>jQuery plugin</dt>
-				  <a href="javascripts/brightbox.js">brightbox.js</a>
+				  <dd><a href="javascripts/brightbox.js">brightbox.js</a> (~7.2 KB)</dd>
+				  <dd><a href="javascripts/brightbox.min.js">brightbox.min.js</a> (~3.2 KB)</dd>
 				  <dt>Stylesheet</dt>
-				  <a href="stylesheets/brightbox.css">brightbox.css</a>
+				  <dd><a href="stylesheets/brightbox.css">brightbox.css</a></dd>
 				  <dt>Loader image</dt>
-				  <a href="images/ajax-loader.gif">ajax-loader.gif</a>
+				  <dd><a href="images/ajax-loader.gif">ajax-loader.gif</a></dd>
 			  </dl>
           </div>
         </div>
       </div>
       <div class="row">
-		  <div class="six columns">
+		  <div class="twelve columns">
 			  <h4>Examples</h4>
-			  <p>Here is a single image. Click to see brightbox in action</p>
+		      <div class="row">
+				  <div class="six columns">
+					  <p>Here is a single image. Click to see brightbox in action</p>
+					  <!--a href="#" id="trigger">Clicking here will trigger a slideshow with the images on the right</a-->
+				  </div>
+				  <div class="six columns">
+					<a id="blaubeere" href="images/sample_3.jpg" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. At ille pellit, qui permulcet sensum voluptate. Ea possunt paria non esse. Quare attende, quaeso"><img src="images/sample_3_thumb.jpg" alt="" /></a>
+				</div>
+		      </div>
 		  </div>
-		  <div class="six columns">
-			<a id="blaubeere" href="images/sample_3.jpg" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. At ille pellit, qui permulcet sensum voluptate. Ea possunt paria non esse. Quare attende, quaeso"><img src="images/sample_3_thumb.jpg" alt="" /></a>
-		</div>
-      </div>
+	</div>
       <div class="row">
         <div class="twelve columns">
             <h4>How to use</h4>
             <h5>HTML</h5>
             <pre>
+&lt;!-- Include stylesheet, jquery and plugin --&gt;
 &lt;link rel="stylesheet" type="text/javascript" href="brightbox.css" /&gt;
+&lt;script src="jquery.min.js"&gt;&lt;/script&gt;
 &lt;script src="brightbox.js"&gt;&lt;/script&gt;
 
-&lt;ul id="images">&lt;/ul>
-&lt;li>&lt;a href="path/to/image.jpg">&lt;img src="path/to/thumbnail.jpg" />&lt;/a>
+&lt;!-- Markup for images--&gt;
+&lt;ul id="images">
+&lt;li>&lt;a href="path/to/image.jpg">&lt;img src="path/to/thumbnail.jpg" /&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li>&lt;a href="path/to/another/image.jpg" title="Optionally give a description here">&lt;img src="path/to/another/thumbnail.jpg" /&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 			</pre>
             <h5>Javascript</h5>
             <pre>
@@ -146,25 +196,31 @@ $(document).ready(function){
     </div>
 
     <div class="four columns">
-	<h4>Some pictures</h4>
-	<p>Featuring <em>brightbox.js</em> &ndash; a jQuery lightbox plugin for use in Foundation for fast prototyping with sane defaults and tweakable. Click on the pictures to see brightbox in action</p>
-	<ul id="thumbnails" class="block-grid three-up">
-		<li><a href="images/sample_0.jpg" title="A scene from the Open Source aimation movie 'Big Buck Bunny'"><img src="images/sample_0_thumb.jpg" alt="" /></a></li>
-		<li><a href="images/sample_1.jpg" title="Hey ho, lets go"><img src="images/sample_1_thumb.jpg" alt="" /></a></li>
-		<li><a href="images/sample_2.jpg" title="This is a bit a longer title: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Iam in altera philosophiae parte. Cupit enim dícere nihil posse ad beatam vitam deesse sapienti. Deinde disputat, quod cuiusque generis animantium statui deceat extremum. Quam tu ponis in verbis, ego positam in re putabam. Scientiam pollicentur, quam non erat mirum sapientiae cupido patria esse cariorem. Nec vero alia sunt quaerenda contra Carneadeam illam sententiam. Duo Reges: constructio interrete. Ille incendat? Tu vero, inquam, ducas licet, si sequetur; At eum nihili facit"><img src="images/sample_2_thumb.jpg" alt="" /></a></li>
-		<li><a href="images/sample_4.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_4_thumb.jpg" alt="" /></a></li>
-		<li><a href="images/sample_5.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_5_thumb.jpg" alt="" /></a></li>
-		<li><a href="images/sample_6.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_6_thumb.jpg" alt="" /></a></li>
-		<li><a href="images/sample_7.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_7_thumb.jpg" alt="" /></a></li>
-		<li><a href="images/sample_8.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_8_thumb.jpg" alt="" /></a></li>
-		<li><a href="images/sample_9.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_9_thumb.jpg" alt="" /></a></li>
-		<li><a href="images/sample_10.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_10_thumb.jpg" alt="" /></a></li>
-		<li><a href="images/sample_11.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_11_thumb.jpg" alt="" /></a></li>
-		<li><a href="images/sample_12.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_12_thumb.jpg" alt="" /></a></li>
-	</ul>
-
-
+		<h4>Some pictures</h4>
+		<p>Featuring <em>brightbox.js</em> &ndash; a jQuery lightbox plugin for use in Foundation for fast prototyping with sane defaults and tweakable. Click on the pictures to see brightbox in action</p>
+		<ul id="thumbnails" class="block-grid three-up">
+			<li><a href="images/sample_0.jpg" title="A scene from the Open Source aimation movie 'Big Buck Bunny'"><img src="images/sample_0_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_1.jpg" title="Hey ho, lets go"><img src="images/sample_1_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_02.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_02_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_4.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_4_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_5.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_5_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_6.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_6_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_2.jpg" title="This is a bit a longer title: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Iam in altera philosophiae parte. Cupit enim dícere nihil posse ad beatam vitam deesse sapienti. Deinde disputat, quod cuiusque generis animantium statui deceat extremum. Quam tu ponis in verbis, ego positam in re putabam. Scientiam pollicentur, quam non erat mirum sapientiae cupido patria esse cariorem. Nec vero alia sunt quaerenda contra Carneadeam illam sententiam. Duo Reges: constructio interrete. Ille incendat? Tu vero, inquam, ducas licet, si sequetur; At eum nihili facit"><img src="images/sample_2_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_7.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_7_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_8.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_8_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_9.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_9_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_10.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_10_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_11.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_11_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_12.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_12_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_13.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_13_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_14.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_14_thumb.jpg" alt="" /></a></li>
+		</ul>
     </div>
+    <aside>
+		<p>brightbox was written in 2012 by <a href="mailto:j.braun@agentur-halma.de">Johannes Braun</a></p>
+		<p>This demo page was stacked together in literally no time by using the fabuluos <a href="http://foundation.zurb.com">Foundation</a> Framework by <a href="http://zurb.com">ZURB</a></p>
+		
+    </aside>
   </div>
 
 
