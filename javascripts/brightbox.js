@@ -27,7 +27,7 @@
  * animate boolean				whether or not to animate the resize between images (default: true)
  * animaitionSpeed integer		Animation speed (default: 500)
  * onImageClick function		Callback function to execute when the image is clicked. Prototyp of the callback function is 
- * 									callback_function(image, imageURL);
+ * 									callback_function(imageURL);
  * 
  * Stylesheet:
  * -----------
@@ -44,17 +44,37 @@
 		var close = $('<a title="close" class="brightbox-button brightbox-close" href="#">&times;</a>');
 		var next = $('<a title="next" class="brightbox-button brightbox-next" href="#">&raquo;</a>');
 		var prev = $('<a title="previous" class="brightbox-button brightbox-prev" href="#">&laquo;</a>');
-		var busy = $('<div class="brightbox-busy">Loading<span class="hellip"></span></div>');
+		var info = $('<div class="brightbox-info-box" />');
 		var current = 0;
 		var imageLinks = this;
 		var image;
+		var initBoxCss = {
+				'top' : parseInt(($(window).height() - 100) / 2),
+				'left' : parseInt(($(window).width() - 100) / 2),
+				'width' : 100,
+				'height' : 100
+		};
+		
+		if (imageLinks.length < 1){
+			return null;
+		}
+		
+		box
+			.append(close)
+			.append(prev)
+			.append(next)
+			.append(info)
+			.css(initBoxCss)
+			.appendTo(overlay)
+		;
+			
+		if (options['closeOnOverlayClick']){
+			overlay.bind('click', closeBrightBox);
+		}
 
-		box.css({
-			'width' : 300,
-			'height' : 200,
-			'top' : ($(window).height() - 200) / 2,
-			'left' : ($(window).width() - 300) / 2
-		}).appendTo(overlay);
+		overlay.hide();
+		box.hide();
+		$('body').prepend(overlay).prepend(box);
 
 		return this.each(function(){
 
@@ -64,23 +84,41 @@
 				event.preventDefault();
 				
 				var imageURL = $(this).attr('href');
+
+				var title = $(this).attr('title');
+
 				for (var i = 0; i < imageLinks.length; i++){
 					if (imageURL == $(imageLinks[i]).attr('href')){
 						current = i;
 						break;
 					}
 				}
-
-				showBrightBox(imageURL, $(this).attr('title'));
+				showBrightBox(imageURL, title);
 				return false;
 			}
 		});
 
+		/*
+		 * CALLBACKS
+		 * =====================================
+		 */
 		
 		function closeBrightBox(){
-			$('.brightbox-overlay').hide();
-			box.empty();
-			$(window).unbind('keyup');
+			if (options['animate']){
+				overlay.fadeOut(options['animationSpeed'], cleanUp);
+				box.fadeOut(options['animationSpeed']);
+			}
+			else {
+				overlay.hide();
+				box.hide();
+				cleanUp();
+			}
+
+			function cleanUp(){
+				box.css(initBoxCss).hide();
+				$(document).unbind('keyup');
+				
+			}
 		}
 
 		function nextBrightBox(){
@@ -89,7 +127,6 @@
 			}
 			var imageLink = imageLinks[current];
 			var imageURL = $(imageLink).attr('href');
-			box.empty();
 			showBrightBox(imageURL, $(imageLink).attr('title'));
 		}
 		
@@ -100,13 +137,13 @@
 			current--;
 			var imageLink = imageLinks[current];
 			var imageURL = $(imageLink).attr('href');
-			box.empty();
 			showBrightBox(imageURL, $(imageLink).attr('title'));
 		}
-		
-
 
 		function onKeyUp(event){
+			event.preventDefault();
+			event.stopPropagation();
+
 			switch(event.keyCode){
 				case 39:
 					nextBrightBox();
@@ -117,22 +154,35 @@
 				case 27:
 					closeBrightBox();
 					break;
+				default:
+					if (options['closeOnOverlayClick']){
+						closeBrightBox();
+					}
+					break;
 			}
+			return false;
 		}
+		
+		/*
+		 * FUNCTIONS
+		 * ========================================
+		 */
 
 		function showBrightBox(imageURL, title){
-			if ($('body > .brightbox-overlay').length == 0){
-				$('body').prepend(overlay);
-				if (options['closeOnOverlayClick']){
-					overlay.bind('click', closeBrightBox);
-				}
+			overlay.css('opacity', '0.9');
+			if (options['animate']){
+				overlay.fadeIn(options['animationSpeed']);
+				box.fadeIn(options['animationSpeed']);
 			}
-			overlay.show();
-			$('.brightbox-info-box').remove();
-
-
-			$(window).unbind('keyup');
-			$(window).bind('keyup', onKeyUp);
+			else {
+				overlay.show();
+				box.show();
+			}
+			
+			box.find('img').remove();
+			
+			$(document).unbind('keyup');
+			$(document).bind('keyup', onKeyUp);
 
 			close.bind('click', function(event){
 				event.preventDefault();
@@ -145,7 +195,7 @@
 				event.preventDefault();
 				event.stopPropagation();
 				if (options['animate']){
-					box.find('img').fadeOut(nextBrightBox);
+					box.find('img').fadeOut(options['animationSpeed'], nextBrightBox);
 				}
 				else {
 					box.find('img').show();
@@ -157,7 +207,7 @@
 				event.preventDefault();
 				event.stopPropagation();
 				if (options['animate']){
-					box.find('img').fadeOut(prevBrightBox);
+					box.find('img').fadeOut(options['animationSpeed'], prevBrightBox);
 				}
 				else {
 					box.find('img').show();
@@ -165,81 +215,87 @@
 				}
 				return false;
 			});
+		
+			box.addClass('busy');
+			info.hide();
 			
-			image = new Image();
-			image.src = imageURL;
-			box.append(busy);
-			setTimeout(beBusy, 300);
-			
-			function beBusy(){
-				var h = busy.find('.hellip');
-				var t = h.html();
-				if (t.length > 2){
-					h.html('');
-				}
-				else {
-					h.html(t + '.');
-				}
-				setTimeout(beBusy, 300);
+			if (options['simulateSlowBandwidth']){
+				setTimeout(loadImage, options['simulateSlowBandwidth']);
 			}
+			else {
+				loadImage();
+			}
+			
+			function loadImage(){
+				image = new Image();
+				image.src = imageURL;
 
-			image.onload = function(){
-				if (image.height > $(window).height()){
-					var ratio = image.width / image.height;
-					image.height = $(window).height() - 50;
-					image.width = image.height * ratio;
-				}
-				
-				$(image).hide().bind('click', function(event){
-					event.preventDefault();
-					event.stopPropagation();
+				image.onload = function(){
 					
-					if (options['onImageClick']){
-						options['onImageClick'](imageURL);
+					box.removeClass('busy');
+					
+					if (image.height > $(window).height()){
+						var ratio = image.width / image.height;
+						image.height = $(window).height() - 50;
+						image.width = image.height * ratio;
 					}
-					return false;
-				});
+					
+					
+					$(image).hide().bind('click', function(event){
+						event.preventDefault();
+						event.stopPropagation();
+						
+						if (options['onImageClick']){
+							options['onImageClick'](imageURL);
+						}
+						
+						return false;
+					});
+					
+					var newCss = {
+						'top' : parseInt(($(window).height() - image.height) / 2),
+						'left' : parseInt(($(window).width() - image.width) / 2),
+						'width' : parseInt(image.width),
+						'height' : parseInt(image.height)
+					};
+					
+					if (options['animate'] == true){
+						box.animate(newCss, options['animationSpeed'], afterShow);
+					}
+					else {
+						box.css(newCss);
+						afterShow();
+					}
+				}
+				function afterShow(){
+					var img = box.find('img');
+					img.remove();
+					
+					box.append(image);
+					
+					if (imageLinks.length == 1){
+						box.find('.brightbox-prev, .brightbox-next').hide();
+					}
+					
+					info.html(title);
+					title.length > 0 ? info.show() : info.hide();
+					
+					box.css({'overflow' : 'visible'}); // Need this for webkit... dunno why though... ^^
+					options['animate'] ? $(image).fadeIn() : $(image).show();
+				}
 				
-				var newCss = {
-					'top' : parseInt(($(window).height() - image.height) / 2),
-					'left' : parseInt(($(window).width() - image.width) / 2),
-					'width' : parseInt(image.width),
-					'height' : parseInt(image.height)
-				};
-				
-				if (options['animate'] == true){
-					box.animate(newCss, options['animationSpeed'], afterApply);
-				}
-				else {
-					box.css(newCss);
-					afterApply();
-				}
-			}
-
-			function afterApply(){
-				box.empty().append(close);
-				if (imageLinks.length > 1){
-					box.append(next);
-					box.append(prev);
-				}
-				box.append(image);
-
-				if (title){
-					var info = $('<div class="brightbox-info-box" />');
-					info.append(title);
-					box.append(info);
-				}
-				box.css('overflow', 'visible');
-				options['animate'] ? box.find('img').fadeIn() : box.find('img').show();
 			}
 		}
 	};
 
+	/*
+	 *  Default options
+	 *================================
+	 */
 	$.fn.brightbox.defaults = {
 		closeOnOverlayClick : true,
 		animate : true,
-		animationSpeed : 500
+		animationSpeed : 300,
+		simulateSlowBandwidth : false
 	};
 })(jQuery);
-
-	

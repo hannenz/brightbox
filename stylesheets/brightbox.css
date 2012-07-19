@@ -8,35 +8,35 @@
 
 
 .brightbox-overlay {
-	z-index : 1000;
-	position : fixed;
-	top : 0;
-	left : 0;
-	width : 100%;
-	height : 100%;
-	text-align : center;
-	color : #888888;
-	overflow : hidden;
-	background-color:#4d4d4d;
-	background-color:rgba(0, 0, 0, 0.8);
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	text-align:center;
+	overflow:hidden;
+	background-color:#000;
+	opacity:1;
+	z-index:1000;
 }
 
 .brightbox {
-	z-index : 1001;
-	background-color : #ffffff;
-/*
-	background-color:#000000;
-*/
-	position : absolute;
-	-webkit-box-sizing : border-box;
-	-moz-box-sizing : border-box;
-	box-sizing : border-box;
-	width : 300;
-	height : 200;
-	position:relative;
+	background:#fff;
+	position:fixed;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+	width:300;
+	height:200;
 	border-radius:4px;
 	overflow:visible;
 	padding:0;
+	opacity:1;
+	z-index:1001;
+}
+
+.brightbox.busy {
+	background:#fff url('../images/ajax-loader.gif') no-repeat 50% 50%;
 }
 
 .brightbox-button {
@@ -55,6 +55,10 @@
 	z-index:1003;
 	border-radius:4px;
 	opacity:0;
+}
+
+.brightbox-button,
+.brightbox-info-box {
 	-moz-transition:opacity 0.2s ease;
 	-webkit-transition:opacity 0.2s ease;
 	-ms-transition:opacity 0.2s ease;
@@ -110,11 +114,19 @@
 	bottom:0;
 	left:0;
 	width:100%;
-	z-index:1002;
+	z-index:1005;
+	opacity:0;
+}
+
+.brightbox:hover .brightbox-info-box {
+	opacity:1.0;
 }
 
 .brightbox img {
 	display:block;
+	position:absolute;
+	top:0;
+	left:0;
 	border-radius:4px;
 	z-index:1002;
 	cursor:pointer;
