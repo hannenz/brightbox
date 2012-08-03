@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -15,7 +14,7 @@
 
   <!-- Included CSS Files -->
   <link rel="stylesheet" href="stylesheets/foundation.css">
-  <link rel="stylesheet" href="stylesheets/brightbox.css">
+  <link rel="stylesheet" href="stylesheets/jquery.brightbox.min.css">
 
   <!--[if lt IE 9]>
     <link rel="stylesheet" href="stylesheets/ie.css">
@@ -97,9 +96,10 @@
 
   <div class="row">
     <div class="twelve columns">
-      <h2>Welcome to Brightbox</h2>
-      <p>A lightweight but solid <a href="http://jquery.org">jQuery</a> lightbox plugin.</p>
-      <hr />
+		<div class="panel">
+      <h1>Welcome to Brightbox</h1>
+      <h2 class="subtitle">A lightweight but solid <a href="http://jquery.org">jQuery</a> lightbox plugin.</h2>
+      </div>
     </div>
   </div>
 
@@ -183,13 +183,13 @@ $(document).ready(function){
 				<dt>closeOnOverlayClick</dt>
 				<dd><em>boolean</em> Whethet or not a click on the overlay closes the box (default: true)</dd>
 				<dt>animate</dt>
-				<dd><em>boolean</em>whether or not to animate the resize between images (default: true)</dd>
+				<dd><em>boolean</em> Whether or not to animate the resize between images (default: true)</dd>
 				<dt>animaitionSpeed</dt>
-				<dd><em>integer</em>Animation speed (default: 500)</dd>
+				<dd><em>integer</em> Animation speed (default: 500)</dd>
 				<dt>onImageClick</dt>
-				<dd><em>function</em>Callback function to execute when the image is clicked. Prototyp of the callback function is</dd>
+				<dd><em>function</em> Callback function to execute when the image is clicked. Prototyp of the callback function is</dd>
 				<dt>simulateSlowBandwidth</dt>
-				<dd><em>number</em>Delay in ms between images to simalate loading time (debugging purposes only). Default: 0</dd>
+				<dd><em>number</em> Delay in ms between images to simalate loading time (debugging purposes only). Default: 0</dd>
 			</dl>
 		  </div>
       </div>
@@ -201,7 +201,7 @@ $(document).ready(function){
 		<ul id="thumbnails" class="block-grid three-up">
 			<li><a href="images/sample_0.jpg" title="A scene from the Open Source aimation movie 'Big Buck Bunny'"><img src="images/sample_0_thumb.jpg" alt="" /></a></li>
 			<li><a href="images/sample_1.jpg" title="Hey ho, lets go"><img src="images/sample_1_thumb.jpg" alt="" /></a></li>
-			<li><a href="images/sample_02.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_02_thumb.jpg" alt="" /></a></li>
+			<li><a href="images/sample_02.jpg"><img src="images/sample_02_thumb.jpg" alt="" /></a></li>
 			<li><a href="images/sample_4.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_4_thumb.jpg" alt="" /></a></li>
 			<li><a href="images/sample_5.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_5_thumb.jpg" alt="" /></a></li>
 			<li><a href="images/sample_6.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_6_thumb.jpg" alt="" /></a></li>
@@ -223,12 +223,10 @@ $(document).ready(function){
     </aside>
   </div>
 
-
-
   <!-- Included JS Files -->
   <script src="javascripts/jquery.min.js"></script>
   <!--script src="javascripts/jquery.mousewheel.min.js"></script-->
-  <script src="javascripts/brightbox.js"></script>
+  <script src="javascripts/jquery.brightbox.min.js"></script>
   <script>
 	  $(document).ready(function(){
 		  $('#thumbnails a').brightbox();

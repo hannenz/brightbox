@@ -1,4 +1,4 @@
-# brightbox.js
+# jquery.brightbox.js
  
 A simple jQuery lightbox plugin for prototyping. No images needed, all done in CSS(3) - will be ugly in ancient browsers.... won't test
   
@@ -6,6 +6,11 @@ A simple jQuery lightbox plugin for prototyping. No images needed, all done in C
  
 ### Markup
 ~~~
+<!-- Include Stylesheet, jQuery and Plugin -->
+<link rel="stylesheet" type="text/css" href="/path/to/jquery.brightbox.min.css" />
+<script src="/path/to/jquery.min.js"></script>
+<script src="/path/to/jquery.brightbox.min.js"></script>
+
 <a class="brightbox" href="an-image.jpg" title="Description of an image"><img src="thumbnail-or-image.jpg" alt="" /></a>
 <a class="brightbox" href="another-image.jpg" title="Description of another image"><img src="thumbnail-or-image.jpg" alt="" /></a>
 ...
@@ -38,4 +43,4 @@ onImageClick function
 
 ### CSS:
 
-See brightbox.css and adjust to fit your needs
+See jquery.brightbox.css and adjust to fit your needs

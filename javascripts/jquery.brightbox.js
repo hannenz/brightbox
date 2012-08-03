@@ -1,6 +1,6 @@
 /*
  * =====================================================================
- * brightbox.js
+ * jquery.brightbox.js
  * =====================================================================
  * A simple jQuery lightbox plugin for prototyping.
  * 
@@ -13,9 +13,13 @@
  * 
  * Markup:
  * -------
+ * <!-- Include Stylesheet, jQuery and Plugin -->
+ * <link rel="stylesheet" type="text/css" href="/path/to/jquery.brightbox.min.css" />
+ * <script src="/path/to/jquery.min.js"></script>
+ * <script src="/path/to/jquery.brightbox.min.js"></script>
+ * 
  * <a class="brightbox" href="an-image.jpg" title="Description of an image"><img src="thumbnail-or-image.jpg" alt="" /></a>
  * <a class="brightbox" href="another-image.jpg" title="Description of another image"><img src="thumbnail-or-image.jpg" alt="" /></a>
- * ...
  * 
  * Javascript:
  * -----------
@@ -31,7 +35,7 @@
  * 
  * Stylesheet:
  * -----------
- * See brightbox.css and adjust to fit your needs
+ * See jquery.brightbox.css and adjust to fit your needs
  * 
  */
  ;(function($){
@@ -295,8 +299,10 @@
 						box.find('.brightbox-prev, .brightbox-next').hide();
 					}
 					
-					info.html(title);
-					title.length > 0 ? info.show() : info.hide();
+					if (title){
+						info.html(title);
+						title.length > 0 ? info.show() : info.hide();
+					}
 					
 					box.css({'overflow' : 'visible'}); // Need this for webkit... dunno why though... ^^
 					options['animate'] ? $(image).fadeIn() : $(image).show();
