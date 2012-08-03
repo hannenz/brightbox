@@ -3,6 +3,10 @@
 A simple jQuery lightbox plugin for prototyping. No images needed, all done in CSS(3) - will be ugly in ancient browsers.... won't test
   
 2012  Johannes Braun <j.braun@agentur-halma.de>
+
+### Download
+
+If you are looking for a stripped down js/css-only download: Look no further, [click here](https://github.com/downloads/hannenz/brightbox/brightbox.zip) 
  
 ### Markup
 ~~~
