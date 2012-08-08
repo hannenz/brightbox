@@ -181,7 +181,7 @@ $(document).ready(function){
 			<h4>Options</h4>
 			<dl>
 				<dt>closeOnOverlayClick</dt>
-				<dd><em>boolean</em> Whethet or not a click on the overlay closes the box (default: true)</dd>
+				<dd><em>boolean</em> Whether or not a click on the overlay closes the box (default: true)</dd>
 				<dt>animate</dt>
 				<dd><em>boolean</em> Whether or not to animate the resize between images (default: true)</dd>
 				<dt>animaitionSpeed</dt>
@@ -215,23 +215,38 @@ $(document).ready(function){
 			<li><a href="images/sample_13.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_13_thumb.jpg" alt="" /></a></li>
 			<li><a href="images/sample_14.jpg" title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumyeirmod tempor invidunt ut la"><img src="images/sample_14_thumb.jpg" alt="" /></a></li>
 		</ul>
-    </div>
-    <aside>
-		<p>brightbox was written in 2012 by <a href="mailto:j.braun@agentur-halma.de">Johannes Braun</a></p>
-		<p>This demo page was stacked together in literally no time by using the fabuluos <a href="http://foundation.zurb.com">Foundation</a> Framework by <a href="http://zurb.com">ZURB</a></p>
-		
-    </aside>
+	    <aside>
+			<p>brightbox was written in 2012 by <a href="mailto:j.braun@agentur-halma.de">Johannes Braun</a></p>
+			<p>This demo page was stacked together in literally no time by using the fabuluos <a href="http://foundation.zurb.com">Foundation</a> Framework by <a href="http://zurb.com">ZURB</a></p>
+	    </aside>
+	</div>
+
   </div>
 
   <!-- Included JS Files -->
   <script src="js/jquery.min.js"></script>
-  <!--script src="javascripts/jquery.mousewheel.min.js"></script-->
+  <script src="js/jquery.mousewheel.min.js"></script>
   <script src="js/jquery.brightbox.js"></script>
   <script>
-	  $(document).ready(function(){
-		  $('#thumbnails a').brightbox();
-		  $('#blaubeere').brightbox();
-	  });
+	$(document).ready(function(){
+		options = {
+			'mousewheel' : true,
+			'closeOnOverlayClick' : false,
+			'animationSpeed' : 250,
+			'simulateSlowBandwidth' : false,
+			'onInit' : function(){ console.log('init'); },
+			'onDestroy' : function(){ console.log('destroy'); },
+			'beforeShow' : function(){ console.log('about to reveal box'); },
+			'afterShow' : function(){ console.log('box has been revealed'); },
+			'beforeLoadImage' : function(){ console.log('before load image'); },
+			'afterLoadImage' : function(){ console.log('after load image'); },
+			'beforeClose' : function(){ console.log('about to close'); },
+			'afterClose' : function() { console.log('has been closed'); }
+		};
+
+		$('#thumbnails a').brightbox(options);
+		$('#blaubeere').brightbox(options);
+	});
   </script>
   
 

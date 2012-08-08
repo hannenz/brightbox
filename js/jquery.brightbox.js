@@ -2,6 +2,7 @@
  * =====================================================================
  * jquery.brightbox.js
  * =====================================================================
+ * 
  * A simple jQuery lightbox plugin for prototyping.
  * 
  * - Keyboard navigation
@@ -13,6 +14,7 @@
  * 
  * Markup:
  * -------
+ * 
  * <!-- Include Stylesheet, jQuery and Plugin -->
  * <link rel="stylesheet" type="text/css" href="/path/to/jquery.brightbox.min.css" />
  * <script src="/path/to/jquery.min.js"></script>
@@ -23,6 +25,7 @@
  * 
  * Javascript:
  * -----------
+ * 
  * var options = { ... };
  * $('.brightbox').brightbox(options);
  * 
@@ -33,10 +36,31 @@
  * onImageClick function		Callback function to execute when the image is clicked. Prototyp of the callback function is 
  * 									callback_function(imageURL);
  * 
+ * Methods:
+ * --------
+ * 
+ * option			setter/ getter for options (call: $(selector).brightbox('option', 'key' [,val]);
+ * destroy			destroys the plugin instance
+ * showBrightBox	show brightbox	
+ * prevBrightBox	go to next image
+ * nextBrightBox	go to previous image
+ * closeBrightBox	close the box
+ * 
+ * Callbacks
+ * ---------
+ * 
+ * onInit			called after the plugin has initialized		
+ * beforeShow		called when the box is about to reveal. Return false to prevent brightbox from revealing
+ * beforeLoadImage	called before the image is loaded. Return false to cancel loading
+ * afterLoadImage	called after the image has loaded
+ * afterShow		called after the box has revealed
+ * beforeClose		called before the box is closed. Return false to cancel closing
+ * afterClose		called after the box has been closed.
+ *  
  * Stylesheet:
  * -----------
  * See jquery.brightbox.css and adjust to fit your needs
- * 
+ *
  */
 
 ;(function($) {
@@ -53,8 +77,6 @@
 		var $el = $(element);
 		var box, overlay, close, prev, next, info, current, imageLinks, image, initBoxCss;
 
-
- 
 		// Extend default options with those supplied by user.
 		options = $.extend({}, $.fn[pluginName].defaults, options);
  
@@ -71,7 +93,7 @@
 			prev = $('<a title="previous" class="brightbox-button brightbox-prev" href="#">&laquo;</a>');
 			info = $('<div class="brightbox-info-box" />');
 			current = 0;
-			imageLinks = this;
+			imageLinks = $el;
 			image;
 			initBoxCss = {
 					'top' : parseInt(($(window).height() - 100) / 2),
@@ -87,8 +109,11 @@
 				.append(info)
 				.css(initBoxCss)
 				.appendTo(overlay)
-				.bind('mousewheel', onMousewheel)
 			;
+			
+			if (options['mousewheel']){
+				box.bind('mousewheel', onMousewheel);
+			}
 				
 			if (options['closeOnOverlayClick']){
 				overlay.bind('click', closeBrightBox);
@@ -101,13 +126,12 @@
 			if (imageLinks.length < 1){
 				return null;
 			}
-			$(this).bind('click', onClick);
+			$el.bind('click', onClick);
 			
 			function onClick(event){
 				event.preventDefault();
 				
 				var imageURL = $(this).attr('href');
-
 				var title = $(this).attr('title');
 
 				for (var i = 0; i < imageLinks.length; i++){
@@ -119,9 +143,6 @@
 				showBrightBox(imageURL, title);
 				return false;
 			}
-
-
- 
 			hook('onInit');
 		}
 
@@ -131,6 +152,9 @@
 		 */
 		
 		function closeBrightBox(){
+			if (hook('beforeClose') === false){
+				return;
+			}
 			if (options['animate']){
 				overlay.fadeOut(options['animationSpeed'], cleanUp);
 				box.fadeOut(options['animationSpeed']);
@@ -146,6 +170,7 @@
 				$(document).unbind('keyup');
 				
 			}
+			hook('afterClose');
 		}
 
 		function nextBrightBox(){
@@ -208,8 +233,13 @@
 		 * FUNCTIONS
 		 * ========================================
 		 */
+		 
 
-		function showBrightBox(imageURL, title){
+		 
+		 function showBrightBox(imageURL, title){
+			if (hook('beforeShow') === false){
+				return;
+			}
 			overlay.css('opacity', '0.9');
 			if (options['animate']){
 				overlay.fadeIn(options['animationSpeed']);
@@ -268,6 +298,9 @@
 			}
 			
 			function loadImage(){
+				if (hook('beforeLoadImage') === false){
+					return;
+				}
 				image = new Image();
 				image.src = imageURL;
 
@@ -310,6 +343,7 @@
 						box.css(newCss);
 						afterShow();
 					}
+					hook('afterLoadImage');
 				}
 				function afterShow(){
 					var img = box.find('img');
@@ -328,10 +362,12 @@
 					
 					box.css({'overflow' : 'visible'}); // Need this for webkit... dunno why though... ^^
 					options['animate'] ? $(image).fadeIn() : $(image).show();
+					hook('afterShow');
 				}
 				
 			}
 		}		
+ 
  
 		/**
 		 * Get/set a plugin option.
@@ -373,75 +409,52 @@
 		 */
 		function hook(hookName) {
 			if (options[hookName] !== undefined) {
-				// Call the user defined function.
-				// Scope is set to the jQuery element we are operating on.
-				options[hookName].call(el);
+				return options[hookName].call(el);
 			}
 		}
  
 		// Initialize the plugin instance.
 		init();
  
-		// Expose methods of Plugin we wish to be public.
 		return {
-			option: option,
-			destroy: destroy
+			'option': option,
+			'destroy': destroy
 		};
 	}
  
-	/**
-	 * Plugin definition.
-	 */
 	$.fn[pluginName] = function(options) {
-		// If the first parameter is a string, treat this as a call to
-		// a public method.
+		
 		if (typeof arguments[0] === 'string') {
 			var methodName = arguments[0];
 			var args = Array.prototype.slice.call(arguments, 1);
 			var returnVal;
-			this.each(function() {
-				// Check that the element has a plugin instance, and that
-				// the requested public method exists.
-				if ($.data(this, 'plugin_' + pluginName) && typeof $.data(this, 'plugin_' + pluginName)[methodName] === 'function') {
-					// Call the method of the Plugin instance, and Pass it
-					// the supplied arguments.
-					returnVal = $.data(this, 'plugin_' + pluginName)[methodName].apply(this, args);
-				} else {
-					//~ throw new Error('Method ' +  methodName + ' does not exist on jQuery.' + pluginName);
-				}
-			});
-			if (returnVal !== undefined){
-				// If the method returned a value, return the value.
-				return returnVal;
-			} else {
-				// Otherwise, returning 'this' preserves chainability.
-				return this;
+			
+			if ($.data(this, 'plugin_' + pluginName) && typeof $.data(this, 'plugin_' + pluginName)[methodName] === 'function') {
+				returnVal = $.data(this, 'plugin_' + pluginName)[methodName].apply(this, args);
 			}
-		// If the first parameter is an object (options), or was omitted,
-		// instantiate a new instance of the plugin.
-		} else if (typeof options === "object" || !options) {
-			return this.each(function() {
-				// Only allow the plugin to be instantiated once.
-				if (!$.data(this, 'plugin_' + pluginName)) {
-					// Pass options to Plugin constructor, and store Plugin
-					// instance in the elements jQuery data object.
-					$.data(this, 'plugin_' + pluginName, new Plugin(this, options));
-				}
-			});
+			return (returnVal !== undefined) ? returnVal : this;
+		}
+		else if (typeof options === "object" || !options) {
+			
+			if (!$.data(this, 'plugin_'+pluginName)){
+				$.data(this, 'plugin_'+pluginName, new Plugin(this, options));
+			}
 		}
 	};
  
-	// Default plugin options.
-	// Options can be overwritten when initializing plugin, by
-	// passing an object literal, or after initialization:
-	// $('#el').demoplugin('option', 'key', value);
 	$.fn[pluginName].defaults = {
-		closeOnOverlayClick : true,
-		animate : true,
-		animationSpeed : 300,
-		simulateSlowBandwidth : false,
-		onInit: function() {},
-		onDestroy: function() {}
+		'closeOnOverlayClick' : true,
+		'animate' : true,
+		'animationSpeed' : 300,
+		'simulateSlowBandwidth' : false,
+		'mousewheel' : false,
+		'onInit': function() {},
+		'onDestroy': function() {},
+		'onShow' : function() {},
+		'beforeLoadImage' : function() {},
+		'afterLoadImage' : function() {},
+		'beforeClose' : function() {},
+		'afterClose' : function() {}
 	};
- 
+	
 })(jQuery);
